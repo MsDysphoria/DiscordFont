@@ -43,10 +43,10 @@ To install and use this plugin, follow these steps:
 - Write and send a message
 
 𝒮𝒸𝓇𝒾𝓅𝓉<br /><br />
-![Text-Preview-1](https://github.com/MsDysphoria/DiscordFont/assets/93496667/1c330739-572e-4c10-b54a-84a5e25cc588)
+![Text-Preview-1-Corrected](https://github.com/MsDysphoria/DiscordFont/assets/93496667/1dd8d30f-1a80-49df-ae1f-984780e27283)
 
 𝙼𝚘𝚗𝚘𝚜𝚙𝚊𝚌𝚎<br /><br />
-![Text-Preview-2](https://github.com/MsDysphoria/DiscordFont/assets/93496667/9a67b4c2-446b-4f7b-b271-890db7c07c4f)
+![Text-Preview-2-Corrected](https://github.com/MsDysphoria/DiscordFont/assets/93496667/d0eef6af-54c3-4a86-a1d0-4e92fbd6ff63)
 
 𝗦𝗮𝗻𝘀-𝗦𝗲𝗿𝗶𝗳 𝗕𝗼𝗹𝗱<br /><br />
 ![Text-Preview-3](https://github.com/MsDysphoria/DiscordFont/assets/93496667/d5c73edf-35ba-40e7-9ddf-08d719c2f55d)
