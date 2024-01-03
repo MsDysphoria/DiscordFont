@@ -92,6 +92,7 @@ Numbers:
 i.e `** **` & `|| ||`
 - [ ] Allowing users to manually set characters and their equivalent in settings<br />
 i.e. `- > ▬`
+- [ ] Adjustable space width
 - [ ] Adding more fonts
 ## Contact
 E-mail: msdysphoria.official@gmail.com<br />
