@@ -88,11 +88,12 @@ Numbers:
 - Font changes don't happen when sending a message with a media file.
 
 ## To-Do
+- [x] Adjustable space width
 - [ ] Improving the wrapper to make it function like Discord's wrappers<br />
 i.e `** **` & `|| ||`
 - [ ] Allowing users to manually set characters and their equivalent in settings<br />
 i.e. `- > ▬`
-- [ ] Adjustable space width
+- [ ] Adding a character counter
 - [ ] Adding more fonts
 ## Contact
 E-mail: msdysphoria.official@gmail.com<br />
