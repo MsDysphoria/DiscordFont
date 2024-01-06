@@ -4,7 +4,8 @@
 
 ## Description
 
-A BetterDiscord plugin that enables fonts for the chat.
+A BetterDiscord plugin that enables customization for the chat.<br />
+(Font, number style, space width & custom changes)
 
 ## Table of Contents
 - [Information](#information)
@@ -21,7 +22,7 @@ A BetterDiscord plugin that enables fonts for the chat.
 - It's an open source third party plugin written for BetterDiscord. At first it was going to be for my personal use, but then I decided to share. It's essentially a character converter one could find on the internet by searching for 'Discord Font Generator', the only difference is that the conversion happens as the user sends messages, without any extra steps to make things more fluent and quicker.
  
 `𝗛𝗼𝘄 𝗶𝘁 𝘄𝗼𝗿𝗸𝘀` <br />
-- DiscordFont allows different fonts to be used in chat. It does it through replacing the letters and numbers of the message that is about to be sent with the special characters defined inside the arrays in the code. Upon sending a message, each character in it is replaced with the font and number style chosen, and the result can be seen after the message is sent.
+- DiscordFont allows different fonts to be used in chat. It does it through replacing the letters and numbers of the message that is about to be sent with the special characters defined inside the arrays in the code. Upon sending a message, each character in it is replaced with the font and number style chosen, and the result can be seen after the message is sent. It also allows changing the space width and setting up custom changes.
    
 ## Installation
 
@@ -36,26 +37,37 @@ To install and use this plugin, follow these steps:
   
 ![image](https://github.com/MsDysphoria/DiscordFont/assets/93496667/d7e4df74-85df-4ceb-bf7f-818117d39233)
 
-- In the Plugin's settings, pick a font and number style you want.
+- In the Plugin's settings, pick the settings you like.
 
-![Settings-Preview](https://github.com/MsDysphoria/DiscordFont/assets/93496667/237f5741-ab5a-4788-bf36-c76d521c41eb)
+![New_Main_Preview](https://github.com/MsDysphoria/DiscordFont/assets/93496667/88c5bebf-3362-49c1-9e0c-4951ea154d56)
 
 - Write and send a message
 
-𝒮𝒸𝓇𝒾𝓅𝓉<br /><br />
+### Examples
+- 𝒮𝒸𝓇𝒾𝓅𝓉<br /><br />
 ![Text-Preview-1-Corrected](https://github.com/MsDysphoria/DiscordFont/assets/93496667/1dd8d30f-1a80-49df-ae1f-984780e27283)
 
-𝙼𝚘𝚗𝚘𝚜𝚙𝚊𝚌𝚎<br /><br />
+- 𝙼𝚘𝚗𝚘𝚜𝚙𝚊𝚌𝚎<br /><br />
 ![Text-Preview-2-Corrected](https://github.com/MsDysphoria/DiscordFont/assets/93496667/d0eef6af-54c3-4a86-a1d0-4e92fbd6ff63)
 
-𝗦𝗮𝗻𝘀-𝗦𝗲𝗿𝗶𝗳 𝗕𝗼𝗹𝗱<br /><br />
+- 𝗦𝗮𝗻𝘀-𝗦𝗲𝗿𝗶𝗳 𝗕𝗼𝗹𝗱<br /><br />
 ![Text-Preview-3](https://github.com/MsDysphoria/DiscordFont/assets/93496667/d5c73edf-35ba-40e7-9ddf-08d719c2f55d)
 
+- Space-Width Settings<br /><br />
+![Space_Width_Settings](https://github.com/MsDysphoria/DiscordFont/assets/93496667/7210f23c-5296-45c5-afab-15955caa86c5)
+
+
+### Wrapper Mode
 - If you don't want every message you send to be affected by these font changes, you can set the `Wrapper Mode` to `Enabled` and wrap the whole message with `++` to change the font.
 
-𝔉𝔯𝔞𝔨𝔱𝔲𝔯 (Wrapper Mode Enabled)<br /><br />
+  𝔉𝔯𝔞𝔨𝔱𝔲𝔯 (Wrapper Mode Enabled)<br /><br />
 ![Text-Wrapper-Preview](https://github.com/MsDysphoria/DiscordFont/assets/93496667/fab017a8-6ca8-4c62-8e74-57b131f96ff1)
 
+### Custom Changes Mode
+- You can also manually assign which character should be changed into what.<br /><br />
+![Custom_Changes_Settings](https://github.com/MsDysphoria/DiscordFont/assets/93496667/34b02fdf-caa7-4bb6-b6a4-782bcad74894)<br /><br />
+After it's set, it will make the specified changes while sending the message.<br /><br />
+![Custom_Changes_Preview_1](https://github.com/MsDysphoria/DiscordFont/assets/93496667/e8d76d72-74b1-422c-8776-c560051f2d65)
 
 ## Fonts
 Text:
@@ -85,14 +97,13 @@ Numbers:
 - Font letters take 2 characters for each letter. A message including 500 regular characters would be 1000 special characters upon sending. For that reason, messages are capped at 1000 regular characters while using the plugin to comply with Discord's limitations for everyone.
   
 ## Known Issues
-- Font changes don't happen when sending a message with a media file.
+- Font changes don't happen when a media file is attached to the message.
 
 ## To-Do
 - [x] Adjustable space width
+- [x] Allowing users to manually set characters and their equivalent in settings<br />i.e. `- > ▬`
 - [ ] Improving the wrapper to make it function like Discord's wrappers<br />
 i.e `** **` & `|| ||`
-- [ ] Allowing users to manually set characters and their equivalent in settings<br />
-i.e. `- > ▬`
 - [ ] Adding a character counter
 - [ ] Adding more fonts
 ## Contact
