@@ -1,7 +1,7 @@
 /**
  * @name DiscordFont
  * @description Different fonts to be used in Discord chat.
- * @version 1.0.0.0
+ * @version 1.0.1.0
  * @author Ms. Dysphoria
  * @authorId 830817860925652992
  * @invite r8VVXuYVTa
@@ -19,11 +19,20 @@ const config = {
                 github_username: "MsDysphoria",
             }
         ],
-        version: "1.0.0.0",
+        version: "1.0.1.0",
         description: "Different fonts to be used in Discord chat.",
         github: "https://github.com/MsDysphoria/DiscordFont/tree/main",
         github_raw: "https://github.com/MsDysphoria/DiscordFont/blob/main/DiscordFont.plugin.js"
     },
+    changelog: [
+        {
+            title: "New Feature",
+            type: "added",
+            items: [
+                "Configuration for space width",
+            ]
+        }
+    ],
     main: "index.js",
     defaultConfig: [
         {
