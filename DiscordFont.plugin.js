@@ -1,7 +1,7 @@
 /**
  * @name DiscordFont
  * @description Different fonts to be used in Discord chat.
- * @version 1.0.1.0
+ * @version 1.1.0.0
  * @author Ms. Dysphoria
  * @authorId 830817860925652992
  * @invite r8VVXuYVTa
@@ -19,7 +19,7 @@ const config = {
                 github_username: "MsDysphoria",
             }
         ],
-        version: "1.0.1.0",
+        version: "1.1.0.0",
         description: "Different fonts to be used in Discord chat.",
         github: "https://github.com/MsDysphoria/DiscordFont/tree/main",
         github_raw: "https://github.com/MsDysphoria/DiscordFont/blob/main/DiscordFont.plugin.js"
@@ -163,9 +163,32 @@ const config = {
                 }
             ]
         },
+
         {
             type: "dropdown",
-            id: "wrappermode",
+            id: "customChangesEnabled",
+            name: "Enable/Disable Custom Changes",
+            note: "To set up custom changes, provide the first character to be replaced followed by the second character it should change into and separate each rule with a space as shown below.",
+            value: 0,
+            options: [
+                {
+                    label: "Disabled",
+                    value: 0
+                },
+                {
+                    label: "Enabled",
+                    value: 1
+                }
+            ]
+        },
+        {
+            type: "textbox",
+            id: "customChanges",
+            value: "-▬ +┼ >▶",
+        },
+        {
+            type: "dropdown",
+            id: "wrapperModeEnabled",
             name: "Wrapper Mode",
             note: "Enables/disables the need for the whole message to be wrapped. (i.e. ++text++)",
             value: 0,
@@ -373,7 +396,7 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
             applyFont(text) {
 
                 // Wrapper Implementation
-                const wrapperModeState = this.settings.wrappermode;
+                const wrapperModeState = this.settings.wrapperModeEnabled;
                 if (wrapperModeState === 1) {
                     if (!text.startsWith("++") || !text.endsWith("++"))
                         return text;
@@ -383,6 +406,10 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
                     }
                 }
 
+                // Apply character limitation for safety
+                if (text.length > 1000) {
+                    text = text.substring(0, 1000);
+                }
 
                 const linkRegex = /https?:\/\/\S+/g;
                 const linkMatches = text.match(linkRegex);
@@ -393,7 +420,7 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
                     for (let i = 0; i < linkMatches.length; i++) {
                         const symbolIndex = i % symbols.length;
                         const symbol = symbols[symbolIndex];
-                        const placeholder = ` ${symbol} `;
+                        const placeholder = `⤓${symbol}⤒`;
                         text = text.replace(linkMatches[i], placeholder);
                     }
                 }
@@ -476,8 +503,8 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
                     changedNumbers = numbers5
                 }
 
-                // Space Settings
 
+                // Space Settings
                 let changedSpaceWidth
                 const spaceWidthValue = this.settings.spacewidth;
                 if (spaceWidthValue === 1) {
@@ -496,7 +523,24 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
                     changedSpaceWidth = "　";
                 }
 
-                // Replace spaces
+
+                // Apply Custom Settings
+                const customChangesState = this.settings.customChangesEnabled;
+                if (customChangesState === 1) {
+                    const customChanges = this.settings.customChanges;
+                    if (customChanges) {
+                        const changes = customChanges.split(' ');
+                        for (let i = 0; i < changes.length; i++) {
+                            const pair = changes[i].split('');
+                            const before = pair[0];
+                            const after = pair[1];
+                            const regex = new RegExp(`(?<!⤓)\\${before}(?!⤒)`, 'g'); // Prevent placeholders from being replaced
+                            text = text.replace(regex, after);
+                        }
+                    }
+                }
+
+                // Replace space
                 const spaceRegex = /\s/g;
                 text = text.replace(spaceRegex, changedSpaceWidth);
 
@@ -518,10 +562,6 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
                     text = text.replace(numbersRegex, changedNumbers[i]);
                 }
 
-                // Apply character limitation for safety
-                if (text.length > 2000) {
-                    text = text.substring(0, 2000);
-                }
 
                 // Restore links from placeholders
                 if (linkMatches) {
@@ -529,7 +569,7 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
                     for (let i = 0; i < linkMatches.length; i++) {
                         const symbolIndex = i % symbols.length;
                         const symbol = symbols[symbolIndex];
-                        const placeholder = ` ${symbol} `;
+                        const placeholder = `⤓${symbol}⤒`;
                         text = text.replace(placeholder, linkMatches[i]);
                     }
                 }
