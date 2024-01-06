@@ -1,7 +1,7 @@
 /**
  * @name DiscordFont
  * @description Different fonts to be used in Discord chat.
- * @version 1.1.0.0
+ * @version 1.1.1.0
  * @author Ms. Dysphoria
  * @authorId 830817860925652992
  * @invite r8VVXuYVTa
@@ -19,7 +19,7 @@ const config = {
                 github_username: "MsDysphoria",
             }
         ],
-        version: "1.1.0.0",
+        version: "1.1.1.0",
         description: "Different fonts to be used in Discord chat.",
         github: "https://github.com/MsDysphoria/DiscordFont/tree/main",
         github_raw: "https://github.com/MsDysphoria/DiscordFont/blob/main/DiscordFont.plugin.js"
@@ -30,6 +30,7 @@ const config = {
             type: "added",
             items: [
                 "Configuration for space width",
+                "Custom settings for symbols"
             ]
         }
     ],
@@ -544,22 +545,27 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
                 const spaceRegex = /\s/g;
                 text = text.replace(spaceRegex, changedSpaceWidth);
 
-                // Replace uppercase letters
-                for (let i = 0; i < uppercaseLetters.length; i++) {
-                    const uppercaseRegex = new RegExp(uppercaseLetters[i], 'g');
-                    text = text.replace(uppercaseRegex, changedUppercaseLetters[i]);
-                }
+                if (fontstyleValue !== 0) {
+                    // Replace uppercase letters
+                    for (let i = 0; i < uppercaseLetters.length; i++) {
+                        const uppercaseRegex = new RegExp(uppercaseLetters[i], 'g');
+                        text = text.replace(uppercaseRegex, changedUppercaseLetters[i]);
+                    }
+                
 
                 // Replace lowercase letters
                 for (let i = 0; i < lowercaseLetters.length; i++) {
                     const lowercaseRegex = new RegExp(lowercaseLetters[i], 'g');
                     text = text.replace(lowercaseRegex, changedLowercaseLetters[i]);
+                    }
                 }
 
-                // Replace numbers
-                for (let i = 0; i < numbers.length; i++) {
-                    const numbersRegex = new RegExp(numbers[i], 'g');
-                    text = text.replace(numbersRegex, changedNumbers[i]);
+                if (numberstyleValue !== 0) {
+                    // Replace numbers
+                    for (let i = 0; i < numbers.length; i++) {
+                        const numbersRegex = new RegExp(numbers[i], 'g');
+                        text = text.replace(numbersRegex, changedNumbers[i]);
+                    }
                 }
 
 
