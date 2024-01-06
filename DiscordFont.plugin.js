@@ -124,6 +124,38 @@ const config = {
         },
         {
             type: "dropdown",
+            id: "spacewidth",
+            name: "Space Width",
+            value: 0,
+            options: [
+                {
+                    label: "Default",
+                    value: 0
+                },
+                {
+                    label: "Lorem Ipsum",
+                    value: 1
+                },
+                {
+                    label: "Lorem Ipsum",
+                    value: 2
+                },
+                {
+                    label: "Lorem Ipsum",
+                    value: 3
+                },
+                {
+                    label: "Lorem Ipsum",
+                    value: 4
+                },
+                {
+                    label: "Lorem　Ipsum",
+                    value: 5
+                }
+            ]
+        },
+        {
+            type: "dropdown",
             id: "wrappermode",
             name: "Wrapper Mode",
             note: "Enables/disables the need for the whole message to be wrapped. (i.e. ++text++)",
@@ -434,6 +466,30 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
                 else if (numberstyleValue === 5) {
                     changedNumbers = numbers5
                 }
+
+                // Space Settings
+
+                let changedSpaceWidth
+                const spaceWidthValue = this.settings.spacewidth;
+                if (spaceWidthValue === 1) {
+                    changedSpaceWidth = " ";
+                }
+                else if (spaceWidthValue === 2) {
+                    changedSpaceWidth = " ";
+                }
+                else if (spaceWidthValue === 3) {
+                    changedSpaceWidth = " ";
+                }
+                else if (spaceWidthValue === 4) {
+                    changedSpaceWidth = " ";
+                }
+                else if (spaceWidthValue === 5) {
+                    changedSpaceWidth = "　";
+                }
+
+                // Replace spaces
+                const spaceRegex = /\s/g;
+                text = text.replace(spaceRegex, changedSpaceWidth);
 
                 // Replace uppercase letters
                 for (let i = 0; i < uppercaseLetters.length; i++) {
