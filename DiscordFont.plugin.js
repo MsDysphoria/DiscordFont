@@ -524,7 +524,6 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
                     changedSpaceWidth = "　";
                 }
 
-
                 // Apply Custom Settings
                 const customChangesState = this.settings.customChangesEnabled;
                 if (customChangesState === 1) {
@@ -542,9 +541,10 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
                 }
 
                 // Replace space
-                const spaceRegex = /\s/g;
-                text = text.replace(spaceRegex, changedSpaceWidth);
-
+                if (spaceWidthValue !== 0) {
+                    const spaceRegex = /\s/g;
+                    text = text.replace(spaceRegex, changedSpaceWidth);
+                }
                 if (fontstyleValue !== 0) {
                     // Replace uppercase letters
                     for (let i = 0; i < uppercaseLetters.length; i++) {
