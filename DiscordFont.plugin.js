@@ -4,7 +4,7 @@
  * @version 1.1.1.0
  * @author Ms. Dysphoria
  * @authorId 830817860925652992
- * @invite r8VVXuYVTa
+ * @invite PANhWAttvg
  * @website https://github.com/MsDysphoria/DiscordFont/tree/main
  * @source https://github.com/MsDysphoria/DiscordFont/blob/main/DiscordFont.plugin.js
  */
