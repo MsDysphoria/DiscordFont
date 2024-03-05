@@ -111,4 +111,4 @@ i.e `** **` & `|| ||`
 ## Contact
 E-mail: msdysphoria.official@gmail.com<br />
 Discord: `msdysphoria`<br />
-[Discord Group]([https://discord.gg/tG6krSHZbG)]
+[Discord Group](https://discord.gg/tG6krSHZbG)
