@@ -1,10 +1,10 @@
 /**
  * @name DiscordFont
- * @description Different fonts to be used in Discord chat.
- * @version 1.1.1.0
+ * @description A BetterDiscord plugin that allows users to customize their text.
+ * @version 1.2.0.0
  * @author Ms. Dysphoria
  * @authorId 830817860925652992
- * @invite PANhWAttvg
+ * @invite tG6krSHZbG
  * @website https://github.com/MsDysphoria/DiscordFont/tree/main
  * @source https://github.com/MsDysphoria/DiscordFont/blob/main/DiscordFont.plugin.js
  */
@@ -19,21 +19,11 @@ const config = {
                 github_username: "MsDysphoria",
             }
         ],
-        version: "1.1.1.0",
-        description: "Different fonts to be used in Discord chat.",
+        version: "1.2.0.0",
+        description: "A BetterDiscord plugin that allows users to customize their text.",
         github: "https://github.com/MsDysphoria/DiscordFont/tree/main",
         github_raw: "https://github.com/MsDysphoria/DiscordFont/blob/main/DiscordFont.plugin.js"
     },
-    changelog: [
-        {
-            title: "New Feature",
-            type: "added",
-            items: [
-                "Configuration for space width",
-                "Custom settings for symbols"
-            ]
-        }
-    ],
     main: "index.js",
     defaultConfig: [
         {
@@ -185,24 +175,14 @@ const config = {
         {
             type: "textbox",
             id: "customChanges",
-            value: "-▬ +┼ >▶",
+            value: "-▬ >▶ .ₒ",
         },
         {
-            type: "dropdown",
-            id: "wrapperModeEnabled",
-            name: "Wrapper Mode",
-            note: "Enables/disables the need for the whole message to be wrapped. (i.e. ++text++)",
-            value: 0,
-            options: [
-                {
-                    label: "Disabled",
-                    value: 0
-                },
-                {
-                    label: "Enabled",
-                    value: 1
-                }
-            ]
+            type: "textbox",
+            id: "designatedWrapper",
+            name: "Designate Wrapper",
+            note: "You can designate your own wrapper to be used (++ by default)",
+            value: "++",
         },
     ]
 };
@@ -399,9 +379,13 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
                 // Wrapper Implementation
                 const wrapperModeState = this.settings.wrapperModeEnabled;
                 if (wrapperModeState === 1) {
-                    if (!text.startsWith("++") || !text.endsWith("++"))
+                    if (!text.startsWith("++"))
                         return text;
-                    else if (text.startsWith("++") && text.endsWith("++")) {
+                    else if (text.startsWith("++")) {
+                        const modifiedText = text.substring(2);
+                        text = modifiedText;
+                    }
+                    else if (text.startsWith("++")) {
                         const modifiedText = text.substring(2, text.length - 2);
                         text = modifiedText;
                     }
@@ -524,50 +508,62 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
                     changedSpaceWidth = "　";
                 }
 
+
+
+                // Designated Wrapper
+                const wrapper = this.settings.designatedWrapper;
+                const escapedWrapper = wrapper.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                const finalRegex = new RegExp(`(${escapedWrapper})(.*?)(\\1)`, 'g');
+
                 // Apply Custom Settings
-                const customChangesState = this.settings.customChangesEnabled;
-                if (customChangesState === 1) {
+                if (this.settings.customChangesEnabled === 1) {
                     const customChanges = this.settings.customChanges;
                     if (customChanges) {
                         const changes = customChanges.split(' ');
-                        for (let i = 0; i < changes.length; i++) {
-                            const pair = changes[i].split('');
-                            const before = pair[0];
-                            const after = pair[1];
-                            const regex = new RegExp(`(?<!⤓)\\${before}(?!⤒)`, 'g'); // Prevent placeholders from being replaced
-                            text = text.replace(regex, after);
+                        for (const change of changes) {
+                            const [before, after] = change.split('');
+                            const regex = new RegExp(`(?<=${escapedWrapper})[^${escapedWrapper}]*${before}[^${escapedWrapper}]*`, 'g');
+                            text = text.replace(finalRegex, (match) => match.replace(regex, (match) => match.split(before).join(after)));
                         }
                     }
                 }
 
-                // Replace space
-                if (spaceWidthValue !== 0) {
-                    const spaceRegex = /\s/g;
-                    text = text.replace(spaceRegex, changedSpaceWidth);
-                }
-                if (fontstyleValue !== 0) {
+                // Replace numbers
+                text = text.replace(finalRegex, (match, p1, p2, p3) => {
+                    const replacedNumbers = p2.replace(/\d/g, (number) => {
+                        const index = numbers.indexOf(parseInt(number, 10));
+                        return index !== -1 ? changedNumbers[index] : number;
+                    });
+                    return p1 + replacedNumbers + p3;
+                });
+
+                // Replace Space & Font
+                text = text.replace(finalRegex, (match, p1, p2) => {
+                    let replacedText = p2;
+
+                    // Replace space
+                    if (spaceWidthValue !== 0) {
+                        replacedText = replacedText.replace(/\s/g, changedSpaceWidth);
+                    }
+
                     // Replace uppercase letters
-                    for (let i = 0; i < uppercaseLetters.length; i++) {
-                        const uppercaseRegex = new RegExp(uppercaseLetters[i], 'g');
-                        text = text.replace(uppercaseRegex, changedUppercaseLetters[i]);
-                    }
-                
+                    if (fontstyleValue !== 0) {
+                        replacedText = replacedText.replace(/[A-Z]/g, (char) => {
+                            const index = uppercaseLetters.indexOf(char);
+                            return index !== -1 ? changedUppercaseLetters[index] : char;
+                        });
 
-                // Replace lowercase letters
-                for (let i = 0; i < lowercaseLetters.length; i++) {
-                    const lowercaseRegex = new RegExp(lowercaseLetters[i], 'g');
-                    text = text.replace(lowercaseRegex, changedLowercaseLetters[i]);
+                        // Replace lowercase letters
+                        replacedText = replacedText.replace(/[a-z]/g, (char) => {
+                            const index = lowercaseLetters.indexOf(char);
+                            return index !== -1 ? changedLowercaseLetters[index] : char;
+                        });
                     }
-                }
+                    
+                    return p1 + replacedText + p1;
+                });
 
-                if (numberstyleValue !== 0) {
-                    // Replace numbers
-                    for (let i = 0; i < numbers.length; i++) {
-                        const numbersRegex = new RegExp(numbers[i], 'g');
-                        text = text.replace(numbersRegex, changedNumbers[i]);
-                    }
-                }
-
+                text = text.replace(new RegExp(escapedWrapper, 'g'), '');
 
                 // Restore links from placeholders
                 if (linkMatches) {
