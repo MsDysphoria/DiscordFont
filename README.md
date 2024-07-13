@@ -1,4 +1,5 @@
 # DiscordFont
+![image](https://github.com/user-attachments/assets/043513e1-231f-4920-b648-55f6a037ecef)
 
 [![License](https://img.shields.io/badge/license-Ms._Dysphoria-blue.svg)](LICENSE)
 
